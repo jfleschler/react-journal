@@ -1,13 +1,19 @@
 * {
   box-sizing: border-box;
 }
-
 body {
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
   box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.1);
+}
+h2 {
+  margin: 0 0 10px;
+}
+input[type='checkbox'] {
+  visibility: hidden;
 }
 
 .app {
@@ -16,43 +22,18 @@ body {
   justify-items: center;
 }
 
-.task-date {
+.date-card {
+  padding: 10px;
+  margin: 10px 0;
+  background: white;
+  position: relative;
+  box-shadow: 1px 1px 3px #888888;
+  overflow: hidden;
 }
-
-input {
-}
-
-.task {
-  display: grid;
-  grid-template-columns: 40px minmax(600px, 1fr);
-  grid-template-rows: 30px;
-  align-items: center;
-}
-.task__checkbox {
-  justify-self: center;
-}
-.task__input {
-  font-size: 16px;
-  border: none;
-  border-bottom: 1px solid black;
-  margin-left: -1px;
-  font-weight: 400;
-  width: 100%;
-  outline: none;
-}
-.task__text {
-  letter-spacing: 0.2px;
-  width: 100%;
-}
-.task__text--complete {
-  text-decoration: line-through;
-  color: grey;
-}
-.task__date {
-  font-size: 10px;
-  color: grey;
-  margin-left: 10px;
-}
-.task__text--complete .task__date {
-  display: none;
+.date-card__counts {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+  font-size: 12px;
 }

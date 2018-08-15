@@ -16,7 +16,7 @@ export const data = {
       },
       {
         id: uuid.v4(),
-        complete: false,
+        complete: true,
         text: 'Do yard work',
         timestamp: moment()
           .subtract(2, 'days')
@@ -74,7 +74,7 @@ export const data = {
       },
       {
         id: uuid.v4(),
-        complete: true,
+        complete: false,
         text: 'Learn React and stuff',
         timestamp: Date.now(),
       },

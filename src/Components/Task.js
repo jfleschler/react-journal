@@ -1,12 +1,20 @@
 import React from 'react';
 import moment from 'moment';
+import classnames from 'classnames';
+
+import Checkbox from './Checkbox';
+import ClickOutside from './ClickOutside';
+import '../css/task.css';
 
 class Task extends React.Component {
   state = {
-    focused: false,
+    selected: false,
+    editing: false,
   };
 
   handleChange = event => {
+    this.setState({ selected: false });
+
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
 
@@ -17,49 +25,58 @@ class Task extends React.Component {
     this.props.updateTask(this.props.date, this.props.index, updatedTask);
   };
 
+  handleClick = event => {};
+
   render() {
     const { complete, text, timestamp } = this.props.task;
     const { date } = this.props;
     const today = moment().format('MM.DD.YY');
-
-    console.log(date, today);
     const taskTime =
       today === date
         ? moment(timestamp).fromNow()
         : moment(timestamp).format('h:mm a');
+
     return (
-      <div className="task">
-        <input
-          className="task__checkbox"
-          type="checkbox"
-          name="complete"
-          checked={complete}
-          onChange={this.handleChange}
-        />
-
-        {this.state.focused || (
-          <div
-            className={complete ? 'task__text--complete' : 'task__text'}
-            onClick={() => {
-              this.setState({ focused: true });
-            }}>
-            {text}
-            <span className="task__date">{taskTime}</span>
-          </div>
-        )}
-
-        {this.state.focused && (
-          <input
-            className="task__input"
-            type="text"
-            name="text"
-            value={text}
-            autoFocus
-            onBlur={() => this.setState({ focused: false })}
+      <ClickOutside onClickOutside={() => this.setState({ selected: false })}>
+        <div
+          className={classnames('task', {
+            'task--selected': this.state.selected,
+          })}>
+          <Checkbox
+            name="complete"
+            checked={complete}
             onChange={this.handleChange}
           />
-        )}
-      </div>
+
+          {this.state.editing || (
+            <div
+              className={classnames('task__body', {
+                'task__body--complete': complete,
+              })}
+              onClick={() => this.setState({ selected: !this.state.selected })}>
+              <span className="task__text">{text}</span>
+              <span className="task__date">{taskTime}</span>
+              <span className="task__actions">
+                <button onClick={() => this.props.editTask(this.props.task)}>
+                  <i className="fas fa-pen" />
+                </button>
+              </span>
+            </div>
+          )}
+
+          {this.state.editing && (
+            <input
+              className="task__input"
+              type="text"
+              name="text"
+              value={text}
+              autoFocus
+              onBlur={() => this.setState({ editing: false })}
+              onChange={this.handleChange}
+            />
+          )}
+        </div>
+      </ClickOutside>
     );
   }
 }

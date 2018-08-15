@@ -1,7 +1,7 @@
 import React from 'react';
 import Task from './Task';
 
-const TaskList = ({ date, tasks, updateTask }) => (
+const TaskList = ({ date, tasks, editTask }) => (
   <div className="task-list">
     {tasks.map((task, index) => (
       <Task
@@ -9,7 +9,7 @@ const TaskList = ({ date, tasks, updateTask }) => (
         date={date}
         index={index}
         task={task}
-        updateTask={updateTask}
+        editTask={editTask}
       />
     ))}
   </div>

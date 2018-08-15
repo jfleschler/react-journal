@@ -1,20 +1,27 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 
-import DateTasks from './Components/DateTasks';
+import DateCard from './Components/DateCard';
 import AddTaskForm from './Components/AddTaskForm';
+import EditTaskForm from './Components/EditTaskForm';
+
 import { data } from './demo-data';
 
 class App extends Component {
   state = {
     tasks: {},
+    editingTask: {},
   };
 
   componentDidMount() {
     this.setState(data);
   }
 
-  updateTask = (date, index, newTask) => {
+  editTask = task => {
+    this.setState({ editingTask: task });
+  };
+
+  saveTask = (date, newTask) => {
     const tasks = { ...this.state.tasks };
     tasks[date] = tasks[date].map(task => {
       if (task.id === newTask.id) {
@@ -25,7 +32,12 @@ class App extends Component {
 
     this.setState({
       tasks,
+      editingTask: {},
     });
+  };
+
+  cancelEdit = () => {
+    this.setState({ editingTask: [] });
   };
 
   addTask = newTask => {
@@ -41,8 +53,20 @@ class App extends Component {
   render() {
     return (
       <div className="app">
-        <DateTasks tasks={this.state.tasks} updateTask={this.updateTask} />
+        {Object.keys(this.state.tasks).map(key => (
+          <DateCard
+            key={key}
+            date={key}
+            tasks={this.state.tasks[key]}
+            editTask={this.editTask}
+          />
+        ))}
         <AddTaskForm addTask={this.addTask} />
+        <EditTaskForm
+          task={this.state.editingTask}
+          saveTask={this.saveTask}
+          cancelEdit={this.cancelEdit}
+        />
       </div>
     );
   }
