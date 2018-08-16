@@ -1,69 +1,131 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 
-import DateCard from './Components/DateCard';
-import AddTaskForm from './Components/AddTaskForm';
+import JournalList from './Components/JournalList';
+import TopicViewer from './Components/TopicViewer';
 import EditTaskForm from './Components/EditTaskForm';
 
-import { data } from './demo-data';
+import { sampleData } from './demo-data';
 
 class App extends Component {
   state = {
-    tasks: {},
+    journals: [],
+    selectedTopic: null,
     editingTask: {},
   };
 
   componentDidMount() {
-    this.setState(data);
+    this.setState(sampleData);
   }
 
   editTask = task => {
     this.setState({ editingTask: task });
   };
 
-  saveTask = (date, newTask) => {
-    const tasks = { ...this.state.tasks };
-    tasks[date] = tasks[date].map(task => {
+  saveTask = (key, newTask) => {
+    const selectedTopic = { ...this.getSelectedTopic() };
+    selectedTopic.tasks[key] = selectedTopic.tasks[key].map(task => {
       if (task.id === newTask.id) {
         return newTask;
       }
       return task;
     });
 
+    const currentJournal = this.getCurrentJournal().topics.map(topic => {
+      if (topic.id === selectedTopic.id) {
+        return selectedTopic;
+      }
+      return topic;
+    });
+
+    const newJournals = this.state.journals.map((journal, idx) => {
+      if (journal.id === currentJournal.id) {
+        return currentJournal;
+      }
+      return journal;
+    });
+
     this.setState({
-      tasks,
+      ...this.state,
       editingTask: {},
+      newJournals,
     });
   };
 
   cancelEdit = () => {
-    this.setState({ editingTask: [] });
+    this.setState({ editingTask: {} });
   };
 
-  addTask = newTask => {
-    const key = moment().format('MM.DD.YY');
-    const tasks = { ...this.state.tasks };
-    tasks[key] = tasks[key].concat(newTask);
+  addTask = (key, newTask) => {
+    const selectedTopic = { ...this.getSelectedTopic() };
+    selectedTopic.tasks[key] = selectedTopic.tasks[key].concat(newTask);
+
+    const currentJournal = this.getCurrentJournal().topics.map(topic => {
+      if (topic.id === selectedTopic.id) {
+        return selectedTopic;
+      }
+      return topic;
+    });
+
+    const newJournals = this.state.journals.map((journal, idx) => {
+      if (journal.id === currentJournal.id) {
+        return currentJournal;
+      }
+      return journal;
+    });
 
     this.setState({
-      tasks,
+      ...this.state,
+      editingTask: {},
+      newJournals,
     });
   };
 
+  selectTopic = topicId => {
+    this.setState({ selectedTopic: topicId });
+  };
+
+  getCurrentJournal = () => {
+    return this.state.journals.filter(journal => {
+      return (
+        journal.topics.filter(topic => {
+          return topic.id === this.state.selectedTopic;
+        }).length > 0
+      );
+    })[0];
+  };
+
+  getSelectedTopic = () => {
+    const currentJournal = this.getCurrentJournal();
+
+    if (!currentJournal) {
+      return null;
+    }
+
+    return currentJournal.topics.filter(topic => {
+      return topic.id === this.state.selectedTopic;
+    })[0];
+  };
+
   render() {
+    const currentJournal = this.getCurrentJournal();
+    const selectedTopic = this.getSelectedTopic();
     return (
       <div className="app">
-        {Object.keys(this.state.tasks).map(key => (
-          <DateCard
-            key={key}
-            date={key}
-            tasks={this.state.tasks[key]}
-            editTask={this.editTask}
-            saveTask={this.saveTask}
-          />
-        ))}
-        <AddTaskForm addTask={this.addTask} />
+        <JournalList
+          journals={this.state.journals}
+          selectedTopic={this.state.selectedTopic}
+          selectTopic={this.selectTopic}
+        />
+        <TopicViewer
+          currentJournal={currentJournal}
+          topic={selectedTopic}
+          addTask={this.addTask}
+          saveTask={this.saveTask}
+          editTask={this.editTask}
+        />
         <EditTaskForm
+          topic={selectedTopic}
           task={this.state.editingTask}
           saveTask={this.saveTask}
           cancelEdit={this.cancelEdit}

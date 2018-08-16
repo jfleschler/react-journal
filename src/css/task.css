@@ -5,10 +5,17 @@
   align-items: center;
   position: relative;
   cursor: pointer;
+  border-radius: 6px;
+  margin-top: 3px;
+}
+.task:not(.task--selected):hover {
+  transition: background 0.3s;
+  background: rgba(0, 0, 0, 0.05);
 }
 .task--selected {
   background: #2e92f8;
-  border-radius: 15px;
+  transition: background 0.3s;
+  color: white;
 }
 .task--selected .task__date {
   color: white;
@@ -46,9 +53,9 @@
 .task__body .task__text {
   display: inline-block;
   position: relative;
-  transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+  /* transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1); */
 }
-.task__body--complete .task__text {
+.task:not(.task--selected) .task__body--complete .task__text {
   color: grey;
 }
 .task__body .task__text:after {
@@ -79,6 +86,9 @@
   animation-name: strikethrough;
   transform: scaleX(1);
 }
+.task--selected .task__body--complete .task__text:after {
+  background: white;
+}
 .task__date {
   font-size: 10px;
   color: grey;
@@ -86,6 +96,11 @@
 }
 .task__body--complete .task__date {
   display: none;
+}
+
+.task--selected .checkbox label:after {
+  border-right: 1px solid white;
+  border-top: 1px solid white;
 }
 
 @keyframes strikethrough {

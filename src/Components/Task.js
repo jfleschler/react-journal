@@ -9,7 +9,6 @@ import '../css/task.css';
 class Task extends React.Component {
   state = {
     selected: false,
-    editing: false,
   };
 
   handleChange = event => {
@@ -22,22 +21,29 @@ class Task extends React.Component {
       ...this.props.task,
       [target.name]: value,
     };
-    this.props.saveTask(this.props.date, updatedTask);
+    this.props.saveTask(this.props.title, updatedTask);
   };
-
-  handleClick = event => {};
 
   render() {
     const { complete, text, timestamp } = this.props.task;
-    const { date } = this.props;
-    const today = moment().format('MM.DD.YY');
-    const taskTime =
-      today === date
-        ? moment(timestamp).fromNow()
-        : moment(timestamp).format('h:mm a');
+    const { color } = this.props;
+    const taskTime = moment(timestamp).format('h:mm a');
 
     return (
       <ClickOutside onClickOutside={() => this.setState({ selected: false })}>
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+              .checkbox label:after {
+                border-right: 1px solid ${color};
+                border-top: 1px solid ${color};
+              }
+              .task--selected {
+                  background: ${color};
+              }`,
+          }}
+        />
+
         <div
           className={classnames('task', {
             'task--selected': this.state.selected,
@@ -48,33 +54,19 @@ class Task extends React.Component {
             onChange={this.handleChange}
           />
 
-          {this.state.editing || (
-            <div
-              className={classnames('task__body', {
-                'task__body--complete': complete,
-              })}
-              onClick={() => this.setState({ selected: !this.state.selected })}>
-              <span className="task__text">{text}</span>
-              <span className="task__date">{taskTime}</span>
-              <span className="task__actions">
-                <button onClick={() => this.props.editTask(this.props.task)}>
-                  <i className="fas fa-pen" />
-                </button>
-              </span>
-            </div>
-          )}
-
-          {this.state.editing && (
-            <input
-              className="task__input"
-              type="text"
-              name="text"
-              value={text}
-              autoFocus
-              onBlur={() => this.setState({ editing: false })}
-              onChange={this.handleChange}
-            />
-          )}
+          <div
+            className={classnames('task__body', {
+              'task__body--complete': complete,
+            })}
+            onClick={() => this.setState({ selected: !this.state.selected })}>
+            <span className="task__text">{text}</span>
+            <span className="task__date">{taskTime}</span>
+            <span className="task__actions">
+              <button onClick={() => this.props.editTask(this.props.task)}>
+                <i className="fas fa-pen" />
+              </button>
+            </span>
+          </div>
         </div>
       </ClickOutside>
     );

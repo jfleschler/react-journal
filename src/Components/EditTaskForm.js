@@ -28,8 +28,13 @@ class EditTaskForm extends React.Component {
       ...this.props.task,
       text: this.state.text,
     };
-    const key = moment(this.props.task.timestamp).format('MM.DD.YY');
-    this.props.saveTask(key, updatedTask);
+
+    const taskGroup = Object.keys(this.props.topic.tasks).filter(key => {
+      const tasks = this.props.topic.tasks[key];
+      return tasks.filter(task => task.id === updatedTask.id).length;
+    });
+
+    this.props.saveTask(taskGroup, updatedTask);
 
     this.setState({ text: '' });
   };
