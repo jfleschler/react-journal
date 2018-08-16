@@ -22,7 +22,7 @@ class Task extends React.Component {
       ...this.props.task,
       [target.name]: value,
     };
-    this.props.updateTask(this.props.date, this.props.index, updatedTask);
+    this.props.saveTask(this.props.date, updatedTask);
   };
 
   handleClick = event => {};

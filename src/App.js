@@ -59,6 +59,7 @@ class App extends Component {
             date={key}
             tasks={this.state.tasks[key]}
             editTask={this.editTask}
+            saveTask={this.saveTask}
           />
         ))}
         <AddTaskForm addTask={this.addTask} />
