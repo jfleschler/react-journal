@@ -40,6 +40,7 @@ class Task extends React.Component {
               }
               .task--selected {
                   background: ${color};
+                  box-shadow: 0px 1px 3px ${color};
               }`,
           }}
         />

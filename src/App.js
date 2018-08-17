@@ -109,6 +109,62 @@ class App extends Component {
     });
   };
 
+  deleteTaskGroup = name => {
+    const selectedTopic = { ...this.getSelectedTopic() };
+    delete selectedTopic.tasks[name];
+
+    let currentJournal = { ...this.getCurrentJournal() };
+    currentJournal.topics = this.getCurrentJournal().topics.map(topic => {
+      if (topic.id === selectedTopic.id) {
+        return selectedTopic;
+      }
+      return topic;
+    });
+
+    const journals = this.state.journals.map((journal, idx) => {
+      if (journal.id === currentJournal.id) {
+        return currentJournal;
+      }
+      return journal;
+    });
+
+    this.setState({
+      editingTask: {},
+      journals: [...journals],
+    });
+  };
+
+  renameTaskGroup = (oldTitle, newTitle) => {
+    const selectedTopic = { ...this.getSelectedTopic() };
+    const tasks = Object.keys(selectedTopic.tasks).map(key => {
+      const newKey = key === oldTitle ? newTitle : key;
+      return { [newKey]: selectedTopic.tasks[key] };
+    });
+    selectedTopic.tasks = Object.assign({}, ...tasks);
+
+    delete selectedTopic.tasks[oldTitle];
+
+    let currentJournal = { ...this.getCurrentJournal() };
+    currentJournal.topics = this.getCurrentJournal().topics.map(topic => {
+      if (topic.id === selectedTopic.id) {
+        return selectedTopic;
+      }
+      return topic;
+    });
+
+    const journals = this.state.journals.map((journal, idx) => {
+      if (journal.id === currentJournal.id) {
+        return currentJournal;
+      }
+      return journal;
+    });
+
+    this.setState({
+      editingTask: {},
+      journals: [...journals],
+    });
+  };
+
   selectTopic = topicId => {
     this.setState({ selectedTopic: topicId });
   };
@@ -152,6 +208,8 @@ class App extends Component {
           saveTask={this.saveTask}
           editTask={this.editTask}
           addTaskGroup={this.addTaskGroup}
+          deleteTaskGroup={this.deleteTaskGroup}
+          renameTaskGroup={this.renameTaskGroup}
         />
         <EditTaskForm
           topic={selectedTopic}
