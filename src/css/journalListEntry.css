@@ -1,0 +1,37 @@
+.journal-entry {
+  margin-bottom: 30px;
+}
+.journal-entry__spacer {
+  float: right;
+  width: 25%;
+}
+.journal-entry__name {
+  float: right;
+  width: 75%;
+  position: relative;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  margin-top: 20px;
+  padding: 10px;
+}
+.journal-entry__badge {
+  border: 2px solid;
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  left: -20px;
+  top: 12px;
+  border-radius: 6px;
+  box-shadow: 0px 0px 3px;
+}
+.journal-entry__topic {
+  float: right;
+  width: 75%;
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 6px 0 0 6px;
+  color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}

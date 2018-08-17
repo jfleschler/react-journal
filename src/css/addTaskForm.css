@@ -1,0 +1,33 @@
+.add-task {
+  visibility: hidden;
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  grid-template-rows: 30px;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  border-radius: 6px;
+  margin-top: 3px;
+  color: rgba(0, 0, 0, 0.2);
+}
+.task-group:hover .add-task {
+  visibility: visible;
+}
+
+.add-task:hover,
+.add-task--editing {
+  visibility: visible;
+  color: rgba(0, 0, 0, 0.5);
+}
+.add-task__plus {
+  text-align: center;
+  margin-left: -4px;
+}
+.add-task__input {
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  width: 100%;
+  max-width: 500px;
+  font-size: 16px;
+  padding-bottom: 2px;
+}
