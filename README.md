@@ -5,7 +5,7 @@
 - [ ] Add Topic
 - [ ] Delete Topic
 - [x] Add Journal
-- [ ] Delete Journal
+- [x] Delete Journal
 - [ ] Add routing
 
 - [ ] Reordering

@@ -31,6 +31,17 @@ class App extends Component {
     });
   };
 
+  deleteJournal = journalId => {
+    let journals = [...this.state.journals];
+    journals = journals.filter(journal => {
+      return journal.id !== journalId;
+    });
+
+    this.setState({
+      journals: [...journals],
+    });
+  };
+
   editTask = task => {
     this.setState({ editingTask: task });
   };
@@ -214,6 +225,7 @@ class App extends Component {
           selectedTopic={this.state.selectedTopic}
           selectTopic={this.selectTopic}
           addJournal={this.addJournal}
+          deleteJournal={this.deleteJournal}
         />
         <TopicViewer
           currentJournal={currentJournal}

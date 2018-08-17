@@ -25,6 +25,10 @@ const HelpText = styled.div`
 const ButtonOptions = styled.div`
   color: ${props => props.color || 'white'};
   background: ${props => props.bgColor}A0;
+
+  &:after {
+    border-bottom: 8px solid ${props => props.bgColor}A0;
+  }
 `;
 
 class OptionButton extends React.Component {

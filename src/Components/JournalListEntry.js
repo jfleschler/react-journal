@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-
+import OptionButton from './OptionButton';
+import ConfirmButton from './ConfirmButton';
 import '../css/journalListEntry.css';
 
 const SelectedEntry = css`
@@ -27,13 +28,32 @@ class JournalListEntry extends React.Component {
   }
 
   render() {
+    const { name, color, id } = this.props.journal;
     return (
       <div className="journal-entry">
-        <div
-          className="journal-entry__name"
-          style={{ color: this.props.journal.color }}>
+        <div className="journal-entry__name" style={{ color: color }}>
           <span className="journal-entry__badge" />
-          {this.props.journal.name}
+          {name}
+
+          <div className="journal-entry__options">
+            <OptionButton
+              color="grey"
+              bgColor="#f1f1f1"
+              render={() => <i className="fas fa-ellipsis-h" />}
+              onClick={() => null}>
+              <ConfirmButton
+                onConfirm={() => this.props.deleteJournal(id)}
+                classOverride="task-group__delete-button">
+                Delete Journal
+              </ConfirmButton>
+              <button onClick={() => this.setState({ editing: true })}>
+                Edit Name
+              </button>
+              <button onClick={() => this.setState({ editing: true })}>
+                Add Topic
+              </button>
+            </OptionButton>
+          </div>
         </div>
         {this.props.journal.topics.map((topic, index) => (
           <div key={topic.id}>
