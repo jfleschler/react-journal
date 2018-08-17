@@ -52,19 +52,42 @@ button:focus {
   box-shadow: 0px 3px 3px #2e92f840;
 }
 .journal-list__add-form {
+  opacity: 0;
+  padding: 15px;
   position: absolute;
   bottom: 95px;
   width: 90%;
   justify-self: center;
   border-radius: 12px;
   background: #2e92f8;
-  height: 50px;
   animation: form-slide-up 0.2s forwards;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 5px;
+  color: white;
+  font-size: 12px;
+}
+.journal-list__add-form input {
+  width: 100%;
+  border: none;
+  padding: 6px;
+  border-radius: 3px;
+}
+
+.journal-list__add-form:after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 100px;
+  border-top: 11px solid #2e92f8;
+  border-left: 11px solid transparent;
+  border-right: 11px solid transparent;
 }
 
 @keyframes form-slide-up {
   100% {
     bottom: 105px;
+    opacity: 1;
   }
 }
 

@@ -4,7 +4,7 @@
 - [x] Edit Task Groups
 - [ ] Add Topic
 - [ ] Delete Topic
-- [ ] Add Journal
+- [x] Add Journal
 - [ ] Delete Journal
 - [ ] Add routing
 

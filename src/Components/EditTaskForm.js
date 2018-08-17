@@ -1,8 +1,6 @@
 import React from 'react';
-import moment from 'moment';
 import classnames from 'classnames';
 
-import ClickOutside from './ClickOutside';
 import '../css/editTask.css';
 
 class EditTaskForm extends React.Component {

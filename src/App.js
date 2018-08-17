@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import moment from 'moment';
+import uuid from 'uuid';
 
 import JournalList from './Components/JournalList';
 import TopicViewer from './Components/TopicViewer';
@@ -17,6 +17,19 @@ class App extends Component {
   componentDidMount() {
     this.setState(sampleData);
   }
+
+  addJournal = newJournal => {
+    let journals = [...this.state.journals];
+    journals = journals.concat({
+      id: uuid.v4(),
+      ...newJournal,
+      topics: [],
+    });
+
+    this.setState({
+      journals: [...journals],
+    });
+  };
 
   editTask = task => {
     this.setState({ editingTask: task });
@@ -200,6 +213,7 @@ class App extends Component {
           journals={this.state.journals}
           selectedTopic={this.state.selectedTopic}
           selectTopic={this.selectTopic}
+          addJournal={this.addJournal}
         />
         <TopicViewer
           currentJournal={currentJournal}
