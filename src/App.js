@@ -31,14 +31,15 @@ class App extends Component {
       return task;
     });
 
-    const currentJournal = this.getCurrentJournal().topics.map(topic => {
+    let currentJournal = { ...this.getCurrentJournal() };
+    currentJournal.topics = this.getCurrentJournal().topics.map(topic => {
       if (topic.id === selectedTopic.id) {
         return selectedTopic;
       }
       return topic;
     });
 
-    const newJournals = this.state.journals.map((journal, idx) => {
+    const journals = this.state.journals.map((journal, idx) => {
       if (journal.id === currentJournal.id) {
         return currentJournal;
       }
@@ -46,9 +47,8 @@ class App extends Component {
     });
 
     this.setState({
-      ...this.state,
       editingTask: {},
-      newJournals,
+      journals: [...journals],
     });
   };
 
@@ -60,14 +60,15 @@ class App extends Component {
     const selectedTopic = { ...this.getSelectedTopic() };
     selectedTopic.tasks[key] = selectedTopic.tasks[key].concat(newTask);
 
-    const currentJournal = this.getCurrentJournal().topics.map(topic => {
+    let currentJournal = { ...this.getCurrentJournal() };
+    currentJournal.topics = this.getCurrentJournal().topics.map(topic => {
       if (topic.id === selectedTopic.id) {
         return selectedTopic;
       }
       return topic;
     });
 
-    const newJournals = this.state.journals.map((journal, idx) => {
+    const journals = this.state.journals.map((journal, idx) => {
       if (journal.id === currentJournal.id) {
         return currentJournal;
       }
@@ -75,9 +76,36 @@ class App extends Component {
     });
 
     this.setState({
-      ...this.state,
       editingTask: {},
-      newJournals,
+      journals: [...journals],
+    });
+  };
+
+  addTaskGroup = name => {
+    const selectedTopic = { ...this.getSelectedTopic() };
+    selectedTopic.tasks = {
+      ...selectedTopic.tasks,
+      [name]: [],
+    };
+
+    let currentJournal = { ...this.getCurrentJournal() };
+    currentJournal.topics = this.getCurrentJournal().topics.map(topic => {
+      if (topic.id === selectedTopic.id) {
+        return selectedTopic;
+      }
+      return topic;
+    });
+
+    const journals = this.state.journals.map((journal, idx) => {
+      if (journal.id === currentJournal.id) {
+        return currentJournal;
+      }
+      return journal;
+    });
+
+    this.setState({
+      editingTask: {},
+      journals: [...journals],
     });
   };
 
@@ -123,6 +151,7 @@ class App extends Component {
           addTask={this.addTask}
           saveTask={this.saveTask}
           editTask={this.editTask}
+          addTaskGroup={this.addTaskGroup}
         />
         <EditTaskForm
           topic={selectedTopic}
