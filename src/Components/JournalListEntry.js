@@ -13,6 +13,19 @@ const Entry = styled.div`
 `;
 
 class JournalListEntry extends React.Component {
+  state = { name: '', addTopic: false };
+
+  handleSubmit = event => {
+    event.preventDefault();
+    this.props.addTopic(this.props.journal.id, this.state.name);
+
+    this.setState({ addTopic: false, name: '' });
+  };
+
+  handleChange = event => {
+    this.setState({ name: event.target.value });
+  };
+
   renderJournalTopic(topic) {
     const isSelected = this.props.selectedTopic === topic.id;
 
@@ -41,17 +54,17 @@ class JournalListEntry extends React.Component {
               bgColor="#f1f1f1"
               render={() => <i className="fas fa-ellipsis-h" />}
               onClick={() => null}>
+              <button onClick={() => this.setState({ addTopic: true })}>
+                Add Topic
+              </button>
+              <button onClick={() => this.setState({ editing: true })}>
+                Edit Name
+              </button>
               <ConfirmButton
                 onConfirm={() => this.props.deleteJournal(id)}
                 classOverride="task-group__delete-button">
                 Delete Journal
               </ConfirmButton>
-              <button onClick={() => this.setState({ editing: true })}>
-                Edit Name
-              </button>
-              <button onClick={() => this.setState({ editing: true })}>
-                Add Topic
-              </button>
             </OptionButton>
           </div>
         </div>
@@ -61,6 +74,24 @@ class JournalListEntry extends React.Component {
             {this.renderJournalTopic(topic)}
           </div>
         ))}
+
+        {this.state.addTopic && (
+          <React.Fragment>
+            <div className="journal-entry__spacer" />
+            <div className="journal-entry__add-name">
+              <form onSubmit={this.handleSubmit}>
+                <input
+                  className="journal-entry__input"
+                  type="text"
+                  name="text"
+                  value={this.state.name}
+                  autoFocus
+                  onChange={this.handleChange}
+                />
+              </form>
+            </div>
+          </React.Fragment>
+        )}
       </div>
     );
   }

@@ -16,7 +16,8 @@ class AddTaskForm extends React.Component {
     });
   };
 
-  addTask = () => {
+  addTask = event => {
+    event.preventDefault();
     if (this.state.text !== '') {
       const newTask = {
         id: uuid.v4(),
@@ -41,7 +42,6 @@ class AddTaskForm extends React.Component {
             'add-task--editing': this.state.editing,
           })}
           onClick={e => {
-            console.log('here1');
             e.nativeEvent.stopImmediatePropagation();
             this.setState({ editing: true });
           }}>

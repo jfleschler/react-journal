@@ -42,6 +42,31 @@ class App extends Component {
     });
   };
 
+  addTopic = (journalId, topicName) => {
+    const targetJournal = this.state.journals.filter(
+      journal => journal.id === journalId
+    )[0];
+    let currentJournal = { ...targetJournal };
+    currentJournal.topics = currentJournal.topics.concat({
+      id: uuid.v4(),
+      name: topicName,
+      notes: [],
+      tasks: [],
+    });
+
+    const journals = this.state.journals.map((journal, idx) => {
+      if (journal.id === currentJournal.id) {
+        return currentJournal;
+      }
+      return journal;
+    });
+
+    this.setState({
+      editingTask: {},
+      journals: [...journals],
+    });
+  };
+
   editTask = task => {
     this.setState({ editingTask: task });
   };
@@ -226,6 +251,7 @@ class App extends Component {
           selectTopic={this.selectTopic}
           addJournal={this.addJournal}
           deleteJournal={this.deleteJournal}
+          addTopic={this.addTopic}
         />
         <TopicViewer
           currentJournal={currentJournal}
