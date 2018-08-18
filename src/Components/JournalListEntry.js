@@ -58,7 +58,7 @@ class JournalListEntry extends React.Component {
                 Add Topic
               </button>
               <button onClick={() => this.setState({ editing: true })}>
-                Edit Name
+                Settings
               </button>
               <ConfirmButton
                 onConfirm={() => this.props.deleteJournal(id)}
