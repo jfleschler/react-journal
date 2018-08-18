@@ -1,6 +1,8 @@
 import React from 'react';
 import TaskGroup from './TaskGroup';
 import AddTaskGroup from './AddTaskGroup';
+import OptionButton from './OptionButton';
+import ConfirmButton from './ConfirmButton';
 import '../css/topicViewer.css';
 
 class TopicViewer extends React.Component {
@@ -15,7 +17,22 @@ class TopicViewer extends React.Component {
         <div className="topic__journal" style={{ color: journalColor }}>
           {currentJournal.name}
         </div>
-        <div className="topic__name">{topic.name}</div>
+        <div className="topic__name">
+          {topic.name}
+          <div className="topic__options">
+            <OptionButton
+              color="grey"
+              bgColor="#f1f1f1"
+              render={() => <i className="fas fa-ellipsis-h" />}
+              onClick={() => null}>
+              <ConfirmButton
+                onConfirm={() => this.props.deleteTopic(topic.id)}
+                classOverride="topic__delete-button">
+                Delete Topic
+              </ConfirmButton>
+            </OptionButton>
+          </div>
+        </div>
 
         {Object.keys(topic.tasks).map(key => (
           <TaskGroup

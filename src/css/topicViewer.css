@@ -16,4 +16,21 @@
   font-weight: 600;
   font-size: 40px;
   margin-bottom: 50px;
+  position: relative;
+}
+.topic__options {
+  display: inline-block;
+  margin-left: 15px;
+  bottom: 8px;
+  position: absolute;
+}
+
+.topic__options .option-button__options {
+  animation: topic-slide-down 0.2s forwards;
+}
+
+@keyframes topic-slide-down {
+  100% {
+    top: 50px;
+  }
 }

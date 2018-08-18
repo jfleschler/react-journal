@@ -67,6 +67,25 @@ class App extends Component {
     });
   };
 
+  deleteTopic = topicId => {
+    let currentJournal = { ...this.getCurrentJournal() };
+    currentJournal.topics = currentJournal.topics.filter(
+      topic => topic.id !== topicId
+    );
+
+    const journals = this.state.journals.map((journal, idx) => {
+      if (journal.id === currentJournal.id) {
+        return currentJournal;
+      }
+      return journal;
+    });
+
+    this.setState({
+      editingTask: {},
+      journals: [...journals],
+    });
+  };
+
   editTask = task => {
     this.setState({ editingTask: task });
   };
@@ -262,6 +281,7 @@ class App extends Component {
           addTaskGroup={this.addTaskGroup}
           deleteTaskGroup={this.deleteTaskGroup}
           renameTaskGroup={this.renameTaskGroup}
+          deleteTopic={this.deleteTopic}
         />
         <EditTaskForm
           topic={selectedTopic}
