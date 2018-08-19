@@ -26,9 +26,9 @@ button:focus {
   position: relative;
 }
 .journal-list__add-wrapper {
-  position: absolute;
+  position: fixed;
   bottom: 0;
-  width: 100%;
+  width: 250px;
   display: grid;
   grid-template-columns: 1fr;
 }

@@ -2,6 +2,8 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import OptionButton from './OptionButton';
 import ConfirmButton from './ConfirmButton';
+import ClickOutside from './ClickOutside';
+import EditJournalForm from './EditJournalForm';
 import '../css/journalListEntry.css';
 
 const SelectedEntry = css`
@@ -13,7 +15,7 @@ const Entry = styled.div`
 `;
 
 class JournalListEntry extends React.Component {
-  state = { name: '', addTopic: false };
+  state = { name: '', addTopic: false, editing: false };
 
   handleSubmit = event => {
     event.preventDefault();
@@ -44,6 +46,19 @@ class JournalListEntry extends React.Component {
     const { name, color, id } = this.props.journal;
     return (
       <div className="journal-entry">
+        {this.state.editing && (
+          <ClickOutside
+            onClickOutside={() => this.setState({ editing: false })}>
+            <div>
+              <EditJournalForm
+                journal={this.props.journal}
+                editJournal={this.props.editJournal}
+                onDone={() => this.setState({ editing: false })}
+              />
+            </div>
+          </ClickOutside>
+        )}
+
         <div className="journal-entry__name" style={{ color: color }}>
           <span className="journal-entry__badge" />
           {name}

@@ -13,6 +13,7 @@ class JournalList extends React.Component {
             selectedTopic={this.props.selectedTopic}
             selectTopic={this.props.selectTopic}
             deleteJournal={this.props.deleteJournal}
+            editJournal={this.props.editJournal}
             addTopic={this.props.addTopic}
           />
         ))}

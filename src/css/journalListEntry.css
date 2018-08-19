@@ -1,5 +1,6 @@
 .journal-entry {
   margin-bottom: 30px;
+  position: relative;
 }
 .journal-entry__spacer {
   float: right;

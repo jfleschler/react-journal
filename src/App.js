@@ -31,6 +31,20 @@ class App extends Component {
     });
   };
 
+  editJournal = updatedJournal => {
+    let journals = [...this.state.journals];
+    journals = journals.map(journal => {
+      if (journal.id === updatedJournal.id) {
+        return { ...journal, ...updatedJournal };
+      }
+      return journal;
+    });
+
+    this.setState({
+      journals: [...journals],
+    });
+  };
+
   deleteJournal = journalId => {
     let journals = [...this.state.journals];
     journals = journals.filter(journal => {
@@ -269,6 +283,7 @@ class App extends Component {
           selectedTopic={this.state.selectedTopic}
           selectTopic={this.selectTopic}
           addJournal={this.addJournal}
+          editJournal={this.editJournal}
           deleteJournal={this.deleteJournal}
           addTopic={this.addTopic}
         />
