@@ -5,11 +5,15 @@
 - [x] Edit Task Groups
 - [x] Add Topic
 - [x] Delete Topic
+- [ ] Edit Topic
 - [x] Add Journal
-- [ ] Edit Journal
+- [x] Edit Journal
 - [x] Delete Journal
-- [ ] Add routing
+- [ ] Edit Task (inline)
 
+- [ ] Add routing
+- [ ] Persist data
+- [ ] Use redux?
 - [ ] Reordering
   - [ ] Tasks
   - [ ] Task Groups

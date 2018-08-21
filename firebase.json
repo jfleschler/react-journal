@@ -1,0 +1,6 @@
+{
+  "database": {
+    "rules": "database.rules.json",
+    "databaseURL": "https://react-journal-3318e.firebaseio.com/"
+  }
+}
