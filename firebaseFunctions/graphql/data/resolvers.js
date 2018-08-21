@@ -27,7 +27,7 @@ const resolveFunctions = {
       });
     },
     topic(_, { id }) {
-      return topics.find(topic => topic.id === id);
+      return Helpers.findById(topicsRef, id);
     },
   },
   Mutation: {

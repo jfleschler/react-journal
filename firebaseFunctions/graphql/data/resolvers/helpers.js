@@ -3,7 +3,7 @@ function findById(collectionRef, id) {
   return itemRef.once('value').then(snapshot => {
     const item = snapshot.val();
     if (item === null) throw new Error(`Couldn't find item with id ${id}`);
-    return item;
+    return Object.assign({ id }, item);
   });
 }
 
