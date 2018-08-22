@@ -14,7 +14,7 @@ class TaskGroup extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { name: props.title, editing: false };
+    this.state = { name: props.taskGroup.name, editing: false };
   }
   handleChange = event => {
     this.setState({ name: event.target.value });
@@ -22,20 +22,20 @@ class TaskGroup extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.props.renameTaskGroup(this.props.title, this.state.name);
+    this.props.onUpdateTastGroup(this.props.taskGroup.id, this.state.name);
 
     this.setState({ name: '', editing: false });
   };
 
   render() {
-    const { title, tasks } = this.props;
-    const completedTasks = tasks.filter(task => task.complete).length;
+    const { id, name, tasks } = this.props.taskGroup;
+    // const completedTasks = tasks.filter(task => task.complete).length;
 
     return (
       <div className="task-group">
         <h2 className="task-group__title">
           <div>
-            {this.state.editing || title}
+            {this.state.editing || name}
 
             {this.state.editing && (
               <form onSubmit={this.handleSubmit}>
@@ -59,7 +59,9 @@ class TaskGroup extends React.Component {
                 render={() => <i className="fas fa-ellipsis-h" />}
                 onClick={() => null}>
                 <ConfirmButton
-                  onConfirm={() => this.props.deleteTaskGroup(title)}
+                  onConfirm={() =>
+                    this.props.onDeleteTaskGroup(id, this.props.topicId)
+                  }
                   classOverride="task-group__delete-button">
                   Remove Group
                 </ConfirmButton>
@@ -70,8 +72,8 @@ class TaskGroup extends React.Component {
             </div>
           </div>
         </h2>
-        <TaskList {...this.props} />
-        <AddTaskForm taskGroup={title} addTask={this.props.addTask} />
+        <TaskList tasks={tasks} {...this.props} />
+        <AddTaskForm taskGroup={name} addTask={this.props.addTask} />
       </div>
     );
   }

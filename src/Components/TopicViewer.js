@@ -7,15 +7,15 @@ import '../css/topicViewer.css';
 
 class TopicViewer extends React.Component {
   render() {
-    const { currentJournal, topic } = this.props;
+    const { journal, topic } = this.props;
     if (!topic) return null;
 
-    const journalColor = currentJournal.color;
+    const color = journal.color;
 
     return (
       <div className="topic">
-        <div className="topic__journal" style={{ color: journalColor }}>
-          {currentJournal.name}
+        <div className="topic__journal" style={{ color }}>
+          {journal.name}
         </div>
         <div className="topic__name">
           {topic.name}
@@ -26,7 +26,9 @@ class TopicViewer extends React.Component {
               render={() => <i className="fas fa-ellipsis-h" />}
               onClick={() => null}>
               <ConfirmButton
-                onConfirm={() => this.props.deleteTopic(topic.id)}
+                onConfirm={() => {
+                  this.props.onDeleteTopic(topic.id, journal.id);
+                }}
                 classOverride="topic__delete-button">
                 Delete Topic
               </ConfirmButton>
@@ -34,22 +36,23 @@ class TopicViewer extends React.Component {
           </div>
         </div>
 
-        {Object.keys(topic.tasks).map(key => (
+        {this.props.taskGroups.map(taskGroup => (
           <TaskGroup
-            key={key}
-            title={key}
-            color={journalColor}
-            tasks={topic.tasks[key]}
+            key={taskGroup.id}
+            topicId={topic.id}
+            taskGroup={taskGroup}
+            color={color}
             saveTask={this.props.saveTask}
             editTask={this.props.editTask}
             addTask={this.props.addTask}
-            deleteTaskGroup={this.props.deleteTaskGroup}
-            renameTaskGroup={this.props.renameTaskGroup}
+            onDeleteTaskGroup={this.props.onDeleteTaskGroup}
+            onUpdateTastGroup={this.props.onUpdateTastGroup}
           />
         ))}
         <AddTaskGroup
-          color={journalColor}
-          addTaskGroup={this.props.addTaskGroup}
+          color={color}
+          topicId={topic.id}
+          onAddTaskGroup={this.props.onAddTaskGroup}
         />
       </div>
     );

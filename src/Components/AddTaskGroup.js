@@ -15,7 +15,7 @@ class AddTaskGroup extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.props.addTaskGroup(this.state.name);
+    this.props.onAddTaskGroup(this.props.topicId, this.state.name);
 
     this.setState({ name: '', isOpen: false });
   };

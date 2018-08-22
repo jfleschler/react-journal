@@ -13,6 +13,15 @@ const reactTopicId = uuid.v4();
 const reduxTopicId = uuid.v4();
 const graphQLTopicId = uuid.v4();
 
+const generalTaskGroupId = uuid.v4();
+const dailyJunkGroupId = uuid.v4();
+
+const task1Id = uuid.v4();
+const task2Id = uuid.v4();
+const task3Id = uuid.v4();
+const task4Id = uuid.v4();
+const task5Id = uuid.v4();
+
 export const baseJournals = {
   byId: {
     [workJournalId]: {
@@ -41,38 +50,38 @@ export const baseTopics = {
   byId: {
     [folTopicId]: {
       id: folTopicId,
-      journalId: workJournalId,
       name: 'Florists OnLine',
+      taskGroups: [generalTaskGroupId, dailyJunkGroupId],
     },
     [shoppingTopicId]: {
       id: shoppingTopicId,
-      journalId: personalJournalId,
       name: 'Shopping',
+      taskGroups: [],
     },
     [heathTopicId]: {
       id: heathTopicId,
-      journalId: personalJournalId,
       name: 'Health',
+      taskGroups: [],
     },
     [computersTopicId]: {
       id: computersTopicId,
-      journalId: personalJournalId,
       name: 'Computers',
+      taskGroups: [],
     },
     [reactTopicId]: {
       id: reactTopicId,
-      journalId: learningJournalId,
       name: 'React',
+      taskGroups: [],
     },
     [reduxTopicId]: {
       id: reduxTopicId,
-      journalId: learningJournalId,
       name: 'Redux',
+      taskGroups: [],
     },
     [graphQLTopicId]: {
       id: graphQLTopicId,
-      journalId: learningJournalId,
       name: 'GraphQL',
+      taskGroups: [],
     },
   },
   allIds: [
@@ -86,29 +95,24 @@ export const baseTopics = {
   ],
 };
 
-const generalTaskGroupId = uuid.v4();
-const dailyJunkGroupId = uuid.v4();
 export const baseTaskGroups = {
   byId: {
     [generalTaskGroupId]: {
       id: generalTaskGroupId,
       topicId: folTopicId,
       name: 'General Tasks',
+      tasks: [task1Id, task2Id],
     },
     [dailyJunkGroupId]: {
       id: dailyJunkGroupId,
       topicId: folTopicId,
       name: 'Daily Junk',
+      tasks: [task3Id, task4Id, task5Id],
     },
   },
   allIds: [generalTaskGroupId, dailyJunkGroupId],
 };
 
-const task1Id = uuid.v4();
-const task2Id = uuid.v4();
-const task3Id = uuid.v4();
-const task4Id = uuid.v4();
-const task5Id = uuid.v4();
 export const baseTasks = {
   byId: {
     [task1Id]: {

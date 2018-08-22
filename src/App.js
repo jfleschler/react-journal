@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import uuid from 'uuid';
 
 import JournalListContainer from './containers/JournalListContainer';
-import TopicViewer from './Components/TopicViewer';
+import TopicViewerContainer from './containers/TopicViewerContainer';
 import EditTaskForm from './Components/EditTaskForm';
 
 import { sampleData } from './demo-data';
@@ -19,18 +19,8 @@ class App extends Component {
     return (
       <div className="app">
         <JournalListContainer />
-        {/*<TopicViewer
-          currentJournal={currentJournal}
-          topic={selectedTopic}
-          addTask={this.addTask}
-          saveTask={this.saveTask}
-          editTask={this.editTask}
-          addTaskGroup={this.addTaskGroup}
-          deleteTaskGroup={this.deleteTaskGroup}
-          renameTaskGroup={this.renameTaskGroup}
-          deleteTopic={this.deleteTopic}
-        />
-        <EditTaskForm
+        <TopicViewerContainer />
+        {/*<EditTaskForm
           topic={selectedTopic}
           task={this.state.editingTask}
           saveTask={this.saveTask}
