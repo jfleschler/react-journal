@@ -1,17 +1,22 @@
 import React from 'react';
 import Task from './Task';
 
-const TaskList = ({ title, color, tasks, editTask, saveTask }) => (
+const TaskList = ({
+  title,
+  color,
+  tasks,
+  editTask,
+  onUpdateTask,
+  tasksById,
+}) => (
   <div className="task-list">
     {tasks.map((task, index) => (
       <Task
         key={task}
-        color={color}
-        title={title}
+        task={tasksById[task]}
         index={index}
-        task={task}
         editTask={editTask}
-        saveTask={saveTask}
+        onUpdateTask={onUpdateTask}
       />
     ))}
   </div>

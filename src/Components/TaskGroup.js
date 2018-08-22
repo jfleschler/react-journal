@@ -73,7 +73,7 @@ class TaskGroup extends React.Component {
           </div>
         </h2>
         <TaskList tasks={tasks} {...this.props} />
-        <AddTaskForm taskGroup={name} addTask={this.props.addTask} />
+        <AddTaskForm taskGroupId={id} onAddTask={this.props.onAddTask} />
       </div>
     );
   }

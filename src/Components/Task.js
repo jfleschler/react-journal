@@ -21,7 +21,13 @@ class Task extends React.Component {
       ...this.props.task,
       [target.name]: value,
     };
-    this.props.saveTask(this.props.title, updatedTask);
+  };
+
+  handleToggle = event => {
+    this.setState({ selected: false });
+
+    const { id, text } = this.props.task;
+    this.props.onUpdateTask(id, text, event.target.checked);
   };
 
   render() {
@@ -52,7 +58,7 @@ class Task extends React.Component {
           <Checkbox
             name="complete"
             checked={complete}
-            onChange={this.handleChange}
+            onChange={this.handleToggle}
           />
 
           <div

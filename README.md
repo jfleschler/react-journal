@@ -13,7 +13,7 @@
 
 - [ ] Add routing
 - [ ] Persist data
-- [ ] Use redux?
+- [x] Use redux
 - [ ] Reordering
   - [ ] Tasks
   - [ ] Task Groups

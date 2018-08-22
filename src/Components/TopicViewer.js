@@ -41,10 +41,11 @@ class TopicViewer extends React.Component {
             key={taskGroup.id}
             topicId={topic.id}
             taskGroup={taskGroup}
+            tasksById={this.props.tasksById}
             color={color}
-            saveTask={this.props.saveTask}
             editTask={this.props.editTask}
-            addTask={this.props.addTask}
+            onAddTask={this.props.onAddTask}
+            onUpdateTask={this.props.onUpdateTask}
             onDeleteTaskGroup={this.props.onDeleteTaskGroup}
             onUpdateTastGroup={this.props.onUpdateTastGroup}
           />

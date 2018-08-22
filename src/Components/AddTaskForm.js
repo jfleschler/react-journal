@@ -19,13 +19,7 @@ class AddTaskForm extends React.Component {
   addTask = event => {
     event.preventDefault();
     if (this.state.text !== '') {
-      const newTask = {
-        id: uuid.v4(),
-        text: this.state.text,
-        timestamp: Date.now(),
-        complete: false,
-      };
-      this.props.addTask(this.props.taskGroup, newTask);
+      this.props.onAddTask(this.props.taskGroupId, this.state.text);
     }
 
     this.setState({ text: '', editing: false });
