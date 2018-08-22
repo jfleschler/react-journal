@@ -8,13 +8,13 @@
   border-radius: 6px;
   margin-top: 3px;
 }
-.task:not(.task--selected):hover {
+.task:not(.task--selected, .task--editing):hover {
   transition: background 0.3s;
   background: rgba(0, 0, 0, 0.05);
 }
 .task--selected {
-  background: #2e92f8;
-  box-shadow: 0px 1px 3px #2e92f8;
+  /* background: #2e92f8; */
+  /* box-shadow: 0px 1px 3px #2e92f8; */
   transition: background 0.3s;
   color: white;
 }
@@ -42,11 +42,13 @@
 .task__input {
   font-size: 16px;
   border: none;
-  border-bottom: 1px solid black;
-  margin-left: -1px;
+  margin-left: -20px;
   font-weight: 400;
   width: 100%;
   outline: none;
+  border-radius: 4px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 .task__body {
   letter-spacing: 0.2px;
@@ -102,6 +104,10 @@
 .task--selected .checkbox label:after {
   border-right: 1px solid white;
   border-top: 1px solid white;
+}
+
+.task--editing {
+  /* height: 300px; */
 }
 
 @keyframes strikethrough {

@@ -23,11 +23,16 @@ class ClickOutside extends React.Component {
   render() {
     return (
       <React.Fragment>
-        {React.Children.map(this.props.children, child =>
-          React.cloneElement(child, {
+        {React.Children.map(this.props.children, child => {
+          if (typeof child.type === 'function') {
+            return React.cloneElement(child, {
+              innerRef: this.containerRef,
+            });
+          }
+          return React.cloneElement(child, {
             ref: this.containerRef,
-          })
-        )}
+          });
+        })}
       </React.Fragment>
     );
   }

@@ -5,11 +5,11 @@
 - [x] Edit Task Groups
 - [x] Add Topic
 - [x] Delete Topic
-- [ ] Edit Topic
+- [x] Edit Topic
 - [x] Add Journal
 - [x] Edit Journal
 - [x] Delete Journal
-- [ ] Edit Task (inline)
+- [x] Edit Task (inline)
 
 - [ ] Add routing
 - [ ] Persist data

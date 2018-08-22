@@ -13,6 +13,7 @@ const TaskList = ({
     {tasks.map((task, index) => (
       <Task
         key={task}
+        color={color}
         task={tasksById[task]}
         index={index}
         editTask={editTask}
