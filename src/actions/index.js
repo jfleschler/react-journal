@@ -40,6 +40,17 @@ function addTopic(journalId, topicName) {
     },
   };
 }
+
+function updateTopic(topicId, topicName) {
+  return {
+    type: 'UPDATE_TOPIC',
+    payload: {
+      topicId,
+      topicName,
+    },
+  };
+}
+
 function deleteTopic(topicId, journalId) {
   return {
     type: 'DELETE_TOPIC',
@@ -117,6 +128,7 @@ export {
   updateJournal,
   deleteJournal,
   addTopic,
+  updateTopic,
   deleteTopic,
   addTaskGroup,
   updateTaskGroup,

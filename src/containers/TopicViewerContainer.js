@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import {
+  updateTopic,
   deleteTopic,
   addTaskGroup,
   updateTaskGroup,
@@ -37,7 +38,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onUpdateTopic: (topicId, journalId) => {
+    onUpdateTopic: (topicId, topicName) => {
       dispatch(updateTopic(topicId, topicName));
     },
     onDeleteTopic: (topicId, journalId) => {

@@ -19,6 +19,20 @@ function addTopicId(state, action) {
   return state.concat(topicId);
 }
 
+function updateTopic(state, action) {
+  const { payload } = action;
+  const { topicId, topicName } = payload;
+
+  const topic = state[topicId];
+  return {
+    ...state,
+    [topicId]: {
+      ...topic,
+      name: topicName,
+    },
+  };
+}
+
 function deleteTopic(state, action) {
   const { payload } = action;
   const { topicId } = payload;
@@ -67,6 +81,8 @@ function topicsById(state = baseTopics.byId, action) {
   switch (action.type) {
     case 'ADD_TOPIC':
       return addTopic(state, action);
+    case 'UPDATE_TOPIC':
+      return updateTopic(state, action);
     case 'DELETE_TOPIC':
       return deleteTopic(state, action);
     case 'ADD_TASK_GROUP':

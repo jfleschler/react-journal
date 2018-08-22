@@ -28,6 +28,16 @@
 .topic__options .option-button__options {
   animation: topic-slide-down 0.2s forwards;
 }
+.topic__input {
+  font-size: 40px;
+  border: none;
+  border-bottom: 1px solid black;
+  margin-left: -1px;
+  font-weight: 600;
+  width: 100%;
+  outline: none;
+  margin-bottom: 25px;
+}
 
 @keyframes topic-slide-down {
   100% {
