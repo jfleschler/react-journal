@@ -9,12 +9,6 @@ import EditTaskForm from './Components/EditTaskForm';
 import { sampleData } from './demo-data';
 
 class App extends Component {
-  state = {
-    journals: [],
-    selectedTopic: null,
-    editingTask: {},
-  };
-
   render() {
     return (
       <div className="app">

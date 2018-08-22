@@ -6,6 +6,33 @@ import ConfirmButton from './ConfirmButton';
 import '../css/topicViewer.css';
 
 class TopicViewer extends React.Component {
+  state = {
+    topic: null,
+    editing: false,
+    name: '',
+  };
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.topic && props.topic.id !== state.topicId) {
+      return {
+        topicId: props.topic.id,
+        name: props.topic.name,
+      };
+    }
+    return null;
+  }
+
+  handleChange = event => {
+    this.setState({ name: event.target.value });
+  };
+
+  handleSubmit = event => {
+    event.preventDefault();
+    this.props.onUpdateTopic(this.props.topic.id, this.state.name);
+
+    this.setState({ name: '', editing: false });
+  };
+
   render() {
     const { journal, topic } = this.props;
     if (!topic) return null;
@@ -17,24 +44,44 @@ class TopicViewer extends React.Component {
         <div className="topic__journal" style={{ color }}>
           {journal.name}
         </div>
-        <div className="topic__name">
-          {topic.name}
-          <div className="topic__options">
-            <OptionButton
-              color="grey"
-              bgColor="#f1f1f1"
-              render={() => <i className="fas fa-ellipsis-h" />}
-              onClick={() => null}>
-              <ConfirmButton
-                onConfirm={() => {
-                  this.props.onDeleteTopic(topic.id, journal.id);
-                }}
-                classOverride="topic__delete-button">
-                Delete Topic
-              </ConfirmButton>
-            </OptionButton>
+        {this.state.editing || (
+          <div className="topic__name">
+            {topic.name}
+            <div className="topic__options">
+              <OptionButton
+                color="grey"
+                bgColor="#f1f1f1"
+                render={() => <i className="fas fa-ellipsis-h" />}
+                onClick={() => null}>
+                <button onClick={() => this.setState({ editing: true })}>
+                  Edit Title
+                </button>
+                <ConfirmButton
+                  onConfirm={() => {
+                    this.props.onDeleteTopic(topic.id, journal.id);
+                  }}
+                  classOverride="topic__delete-button">
+                  Delete Topic
+                </ConfirmButton>
+              </OptionButton>
+            </div>
           </div>
-        </div>
+        )}
+
+        {this.state.editing && (
+          <form onSubmit={this.handleSubmit}>
+            <input
+              placeholder="Topic Title"
+              className="topic__input"
+              type="text"
+              name="name"
+              value={this.state.name}
+              autoFocus
+              onBlur={() => this.setState({ editing: false })}
+              onChange={this.handleChange}
+            />
+          </form>
+        )}
 
         {this.props.taskGroups.map(taskGroup => (
           <TaskGroup
