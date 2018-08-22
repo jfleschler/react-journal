@@ -3,9 +3,12 @@ import express from 'express';
 import { graphqlExpress, graphiqlExpress } from 'graphql-server-express';
 import schema from './data/schema';
 import { printSchema } from 'graphql/utilities/schemaPrinter';
+import cors from 'cors';
 
 const setupGraphQLServer = () => {
   const graphQLServer = express();
+
+  graphQLServer.use(cors());
 
   graphQLServer.use(
     '/graphql',

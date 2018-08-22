@@ -19,10 +19,7 @@ class AddJournalForm extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.props.addJournal({
-      name: this.state.journalName,
-      color: this.state.color,
-    });
+    this.props.onAddJournal(this.state.journalName, this.state.color);
 
     this.setState({ journalName: '', color: '', isOpen: false });
   };

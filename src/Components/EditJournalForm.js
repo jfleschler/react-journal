@@ -35,11 +35,11 @@ class EditJournalForm extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.props.editJournal({
-      id: this.props.journal.id,
-      name: this.state.journalName,
-      color: this.state.color,
-    });
+    this.props.onUpdateJournal(
+      this.props.journal.id,
+      this.state.journalName,
+      this.state.color
+    );
 
     this.setState({ journalName: '', color: '' });
     this.props.onDone();

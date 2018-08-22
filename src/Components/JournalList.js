@@ -10,15 +10,16 @@ class JournalList extends React.Component {
           <JournalListEntry
             key={journal.id}
             journal={journal}
-            selectedTopic={this.props.selectedTopic}
-            selectTopic={this.props.selectTopic}
-            deleteJournal={this.props.deleteJournal}
-            editJournal={this.props.editJournal}
-            addTopic={this.props.addTopic}
+            onDeleteJournal={this.props.onDeleteJournal}
+            onUpdateJournal={this.props.onUpdateJournal}
+            onOpenTopic={this.props.onOpenTopic}
+            activeTopicId={this.props.activeTopicId}
+            topicsById={this.props.topicsById}
+            onAddTopic={this.props.onAddTopic}
           />
         ))}
 
-        <AddJournalForm addJournal={this.props.addJournal} />
+        <AddJournalForm onAddJournal={this.props.onAddJournal} />
       </div>
     );
   }

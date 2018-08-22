@@ -19,7 +19,7 @@ class JournalListEntry extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.props.addTopic(this.props.journal.id, this.state.name);
+    this.props.onAddTopic(this.props.journal.id, this.state.name);
 
     this.setState({ addTopic: false, name: '' });
   };
@@ -28,15 +28,16 @@ class JournalListEntry extends React.Component {
     this.setState({ name: event.target.value });
   };
 
-  renderJournalTopic(topic) {
-    const isSelected = this.props.selectedTopic === topic.id;
+  renderJournalTopic(topicId) {
+    const isSelected = this.props.activeTopicId === topicId;
+    const topic = this.props.topicsById[topicId];
 
     return (
       <Entry
         selected={isSelected}
         color={this.props.journal.color}
         className="journal-entry__topic"
-        onClick={() => this.props.selectTopic(topic.id)}>
+        onClick={() => this.props.onOpenTopic(topic.id)}>
         {topic.name}
       </Entry>
     );
@@ -52,7 +53,7 @@ class JournalListEntry extends React.Component {
             <div>
               <EditJournalForm
                 journal={this.props.journal}
-                editJournal={this.props.editJournal}
+                onUpdateJournal={this.props.onUpdateJournal}
                 onDone={() => this.setState({ editing: false })}
               />
             </div>
@@ -76,17 +77,17 @@ class JournalListEntry extends React.Component {
                 Settings
               </button>
               <ConfirmButton
-                onConfirm={() => this.props.deleteJournal(id)}
+                onConfirm={() => this.props.onDeleteJournal(id)}
                 classOverride="task-group__delete-button">
                 Delete Journal
               </ConfirmButton>
             </OptionButton>
           </div>
         </div>
-        {this.props.journal.topics.map((topic, index) => (
-          <div key={topic.id}>
+        {this.props.journal.topics.map((topicId, index) => (
+          <div key={topicId}>
             <div className="journal-entry__spacer" />
-            {this.renderJournalTopic(topic)}
+            {this.renderJournalTopic(topicId)}
           </div>
         ))}
 
