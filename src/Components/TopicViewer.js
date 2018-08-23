@@ -14,6 +14,15 @@ class TopicViewer extends React.Component {
     name: '',
   };
 
+  static getDerivedStateFromProps(props, state) {
+    if (props.topic && props.topic.id !== state.topicId) {
+      return {
+        topicId: props.topic.id,
+        name: props.topic.name,
+      };
+    }
+  }
+
   handleChange = event => {
     this.setState({ name: event.target.value });
   };
