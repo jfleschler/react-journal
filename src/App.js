@@ -9,7 +9,10 @@ class App extends Component {
     return (
       <div className="app">
         <JournalListContainer />
-        <Route path="/:journal/:topic" component={TopicViewerContainer} />
+        <Route
+          path="/:journalName/:topicName"
+          component={TopicViewerContainer}
+        />
       </div>
     );
   }

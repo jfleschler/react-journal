@@ -1,22 +1,23 @@
 import { connect } from 'react-redux';
-import {
-  addJournal,
-  updateJournal,
-  deleteJournal,
-  addTopic,
-  openTopic,
-} from '../actions';
+import { withRouter } from 'react-router';
+import { addJournal, updateJournal, deleteJournal, addTopic } from '../actions';
+import { getActiveJournal, getActiveTopic } from '../helpers';
 import JournalList from '../components/JournalList';
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   const journals = state.entities.journals.allIds.map(id => {
     return state.entities.journals.byId[id];
   });
+  const { pathname } = ownProps.location;
+  const [topicName, journalName] = pathname.split('/').reverse();
+
+  const journal = getActiveJournal(state.entities.journals.byId, journalName);
+  const topic = getActiveTopic(journal, state.entities.topics.byId, topicName);
 
   return {
     journals,
     topicsById: state.entities.topics.byId,
-    activeTopicId: state.ui.activeTopicId,
+    activeTopicId: topic && topic.id,
   };
 };
 
@@ -34,15 +35,14 @@ const mapDispatchToProps = dispatch => {
     onAddTopic: (id, name) => {
       dispatch(addTopic(id, name));
     },
-    onOpenTopic: id => {
-      dispatch(openTopic(id));
-    },
   };
 };
 
-const JournalListContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(JournalList);
+const JournalListContainer = withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(JournalList)
+);
 
 export default JournalListContainer;

@@ -39,8 +39,7 @@ class JournalListEntry extends React.Component {
         <Entry
           selected={isSelected}
           color={this.props.journal.color}
-          className="journal-entry__topic"
-          onClick={() => this.props.onOpenTopic(topic.id)}>
+          className="journal-entry__topic">
           {topic.name}
         </Entry>
       </Link>

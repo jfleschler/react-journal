@@ -14,35 +14,6 @@ class TopicViewer extends React.Component {
     name: '',
   };
 
-  static getDerivedStateFromProps(props, state) {
-    if (props.topic && props.topic.id !== state.topicId) {
-      return {
-        topicId: props.topic.id,
-        name: props.topic.name,
-      };
-    }
-
-    const { journal, topic } = props.match.params;
-
-    const actualJournal = Object.keys(props.journalsById)
-      .filter(key => {
-        return getSlug(props.journalsById[key].name) === journal;
-      })
-      .map(id => {
-        return props.journalsById[id];
-      })[0];
-
-    const topicId = actualJournal.topics.filter(key => {
-      return getSlug(props.topicsById[key].name) === topic;
-    })[0];
-
-    if (topicId) {
-      props.onOpenTopic(topicId);
-    }
-
-    return null;
-  }
-
   handleChange = event => {
     this.setState({ name: event.target.value });
   };

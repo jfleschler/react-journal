@@ -7,21 +7,15 @@ import {
   deleteTaskGroup,
   addTask,
   updateTask,
-  openTopic,
 } from '../actions';
+import { getActiveJournal, getActiveTopic } from '../helpers';
 import TopicViewer from '../components/TopicViewer';
 
-const mapStateToProps = state => {
-  const topic = state.entities.topics.allIds
-    .filter(id => state.ui.activeTopicId === id)
-    .map(id => state.entities.topics.byId[id])[0];
+const mapStateToProps = (state, ownProps) => {
+  const { journalName, topicName } = ownProps.match.params;
 
-  const journal = state.entities.journals.allIds
-    .filter(id => {
-      const journal = state.entities.journals.byId[id];
-      return journal.topics.indexOf(state.ui.activeTopicId) !== -1;
-    })
-    .map(id => state.entities.journals.byId[id])[0];
+  const journal = getActiveJournal(state.entities.journals.byId, journalName);
+  const topic = getActiveTopic(journal, state.entities.topics.byId, topicName);
 
   let taskGroups = [];
   if (topic) {
@@ -34,8 +28,6 @@ const mapStateToProps = state => {
     journal,
     taskGroups,
     tasksById: state.entities.tasks.byId,
-    journalsById: state.entities.journals.byId,
-    topicsById: state.entities.topics.byId,
   };
 };
 
@@ -61,9 +53,6 @@ const mapDispatchToProps = dispatch => {
     },
     onUpdateTask: (taskId, taskName, taskCompletre) => {
       dispatch(updateTask(taskId, taskName, taskCompletre));
-    },
-    onOpenTopic: id => {
-      dispatch(openTopic(id));
     },
   };
 };

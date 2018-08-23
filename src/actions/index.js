@@ -116,13 +116,6 @@ function deleteTask(taskId) {
   };
 }
 
-function openTopic(topicId) {
-  return {
-    type: 'OPEN_TOPIC',
-    payload: { topicId },
-  };
-}
-
 export {
   addJournal,
   updateJournal,
@@ -136,5 +129,4 @@ export {
   addTask,
   updateTask,
   deleteTask,
-  openTopic,
 };
