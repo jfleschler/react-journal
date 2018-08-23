@@ -1,5 +1,4 @@
 import React from 'react';
-import uuid from 'uuid';
 import classnames from 'classnames';
 import ClickOutside from './ClickOutside';
 import '../css/addTaskForm.css';

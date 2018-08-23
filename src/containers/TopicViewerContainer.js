@@ -9,7 +9,7 @@ import {
   updateTask,
   openTopic,
 } from '../actions';
-import TopicViewer from '../Components/TopicViewer';
+import TopicViewer from '../components/TopicViewer';
 
 const mapStateToProps = state => {
   const topic = state.entities.topics.allIds
@@ -34,6 +34,7 @@ const mapStateToProps = state => {
     journal,
     taskGroups,
     tasksById: state.entities.tasks.byId,
+    journalsById: state.entities.journals.byId,
     topicsById: state.entities.topics.byId,
   };
 };

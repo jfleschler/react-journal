@@ -6,7 +6,7 @@ import {
   addTopic,
   openTopic,
 } from '../actions';
-import JournalList from '../Components/JournalList';
+import JournalList from '../components/JournalList';
 
 const mapStateToProps = state => {
   const journals = state.entities.journals.allIds.map(id => {

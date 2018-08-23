@@ -11,7 +11,7 @@
 - [x] Delete Journal
 - [x] Edit Task (inline)
 
-- [ ] Add routing
+- [x] Add routing
 - [ ] Persist data
 - [x] Use redux
 - [ ] Reordering

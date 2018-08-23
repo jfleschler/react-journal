@@ -23,7 +23,16 @@ class TopicViewer extends React.Component {
     }
 
     const { journal, topic } = props.match.params;
-    const topicId = Object.keys(props.topicsById).filter(key => {
+
+    const actualJournal = Object.keys(props.journalsById)
+      .filter(key => {
+        return getSlug(props.journalsById[key].name) === journal;
+      })
+      .map(id => {
+        return props.journalsById[id];
+      })[0];
+
+    const topicId = actualJournal.topics.filter(key => {
       return getSlug(props.topicsById[key].name) === topic;
     })[0];
 
