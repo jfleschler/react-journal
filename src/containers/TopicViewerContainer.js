@@ -7,6 +7,7 @@ import {
   deleteTaskGroup,
   addTask,
   updateTask,
+  openTopic,
 } from '../actions';
 import TopicViewer from '../Components/TopicViewer';
 
@@ -33,6 +34,7 @@ const mapStateToProps = state => {
     journal,
     taskGroups,
     tasksById: state.entities.tasks.byId,
+    topicsById: state.entities.topics.byId,
   };
 };
 
@@ -58,6 +60,9 @@ const mapDispatchToProps = dispatch => {
     },
     onUpdateTask: (taskId, taskName, taskCompletre) => {
       dispatch(updateTask(taskId, taskName, taskCompletre));
+    },
+    onOpenTopic: id => {
+      dispatch(openTopic(id));
     },
   };
 };

@@ -3,6 +3,8 @@ import TaskGroup from './TaskGroup';
 import AddTaskGroup from './AddTaskGroup';
 import OptionButton from './OptionButton';
 import ConfirmButton from './ConfirmButton';
+import { getSlug } from '../helpers';
+
 import '../css/topicViewer.css';
 
 class TopicViewer extends React.Component {
@@ -19,6 +21,16 @@ class TopicViewer extends React.Component {
         name: props.topic.name,
       };
     }
+
+    const { journal, topic } = props.match.params;
+    const topicId = Object.keys(props.topicsById).filter(key => {
+      return getSlug(props.topicsById[key].name) === topic;
+    })[0];
+
+    if (topicId) {
+      props.onOpenTopic(topicId);
+    }
+
     return null;
   }
 
@@ -30,7 +42,11 @@ class TopicViewer extends React.Component {
     event.preventDefault();
     this.props.onUpdateTopic(this.props.topic.id, this.state.name);
 
-    this.setState({ name: '', editing: false });
+    this.setState({ editing: false });
+
+    const journalSlug = getSlug(this.props.journal.name);
+    const topicSlug = getSlug(this.state.name);
+    this.props.history.push(`/${journalSlug}/${topicSlug}`);
   };
 
   render() {

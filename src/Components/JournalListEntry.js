@@ -1,9 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import OptionButton from './OptionButton';
 import ConfirmButton from './ConfirmButton';
 import ClickOutside from './ClickOutside';
 import EditJournalForm from './EditJournalForm';
+import { getSlug } from '../helpers';
 import '../css/journalListEntry.css';
 
 const SelectedEntry = css`
@@ -33,13 +35,15 @@ class JournalListEntry extends React.Component {
     const topic = this.props.topicsById[topicId];
 
     return (
-      <Entry
-        selected={isSelected}
-        color={this.props.journal.color}
-        className="journal-entry__topic"
-        onClick={() => this.props.onOpenTopic(topic.id)}>
-        {topic.name}
-      </Entry>
+      <Link to={`/${getSlug(this.props.journal.name)}/${getSlug(topic.name)}`}>
+        <Entry
+          selected={isSelected}
+          color={this.props.journal.color}
+          className="journal-entry__topic"
+          onClick={() => this.props.onOpenTopic(topic.id)}>
+          {topic.name}
+        </Entry>
+      </Link>
     );
   }
 
