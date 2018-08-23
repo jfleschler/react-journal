@@ -45,7 +45,8 @@ class Task extends React.Component {
     this.props.onUpdateTask(id, text, event.target.checked);
   };
 
-  handleSubmit = () => {
+  handleSubmit = event => {
+    event.preventDefault();
     const { id, complete } = this.props.task;
     this.props.onUpdateTask(id, this.state.text, complete);
 

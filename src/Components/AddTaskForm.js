@@ -16,7 +16,7 @@ class AddTaskForm extends React.Component {
     });
   };
 
-  addTask = event => {
+  handleSubmit = event => {
     event.preventDefault();
     if (this.state.text !== '') {
       this.props.onAddTask(this.props.taskGroupId, this.state.text);
@@ -44,7 +44,7 @@ class AddTaskForm extends React.Component {
           {this.state.editing || <div className="text">Add task</div>}
 
           {this.state.editing && (
-            <form onSubmit={this.addTask}>
+            <form onSubmit={this.handleSubmit}>
               <div className="task__body">
                 <input
                   className="add-task__input"
