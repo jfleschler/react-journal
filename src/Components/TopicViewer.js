@@ -21,6 +21,7 @@ class TopicViewer extends React.Component {
         name: props.topic.name,
       };
     }
+    return state;
   }
 
   handleChange = event => {
@@ -43,7 +44,6 @@ class TopicViewer extends React.Component {
     if (!topic) return null;
 
     const color = journal.color;
-
     return (
       <div className="topic">
         <div className="topic__journal" style={{ color }}>

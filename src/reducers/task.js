@@ -1,6 +1,16 @@
 import { combineReducers } from 'redux';
 import { baseTasks } from '../demo-data';
 
+function loadTasks(state, action) {
+  const { payload } = action;
+  return { ...payload };
+}
+
+function loadTaskId(state, action) {
+  const { payload } = action;
+  return Object.keys(payload);
+}
+
 function addTask(state, action) {
   const { payload } = action;
   const { taskId, taskText, taskComplete, taskTimestamp } = payload;
@@ -50,8 +60,10 @@ function deleteTaskId(state, action) {
   return state.filter(t => t !== taskId);
 }
 
-function tasksById(state = baseTasks.byId, action) {
+function tasksById(state = {}, action) {
   switch (action.type) {
+    case 'LOAD_TASKS':
+      return loadTasks(state, action);
     case 'ADD_TASK':
       return addTask(state, action);
     case 'UPDATE_TASK':
@@ -63,8 +75,10 @@ function tasksById(state = baseTasks.byId, action) {
   }
 }
 
-function allTasks(state = baseTasks.allIds, action) {
+function allTasks(state = [], action) {
   switch (action.type) {
+    case 'LOAD_TASKS':
+      return loadTaskId(state, action);
     case 'ADD_TASK':
       return addTaskId(state, action);
     case 'DELETE_TASK':

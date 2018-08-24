@@ -3,12 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "apollo-boost": "^0.1.14",
     "classnames": "^2.2.6",
+    "firebase": "^5.4.1",
     "graphql": "^0.13.2",
     "moment": "^2.22.2",
     "react": "^16.4.2",
-    "react-apollo": "^2.1.11",
     "react-dom": "^16.4.2",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",

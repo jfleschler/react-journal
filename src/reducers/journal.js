@@ -1,5 +1,16 @@
 import { combineReducers } from 'redux';
-import { baseJournals } from '../demo-data';
+import { populateEntityArray } from '../helpers';
+
+function loadJournals(state, action) {
+  const { payload } = action;
+  populateEntityArray(payload, 'topics');
+  return { ...payload };
+}
+
+function loadJournalId(state, action) {
+  const { payload } = action;
+  return Object.keys(payload);
+}
 
 function addJournal(state, action) {
   const { payload } = action;
@@ -78,8 +89,10 @@ function deleteTopic(state, action) {
   };
 }
 
-function journalsById(state = baseJournals.byId, action) {
+function journalsById(state = {}, action) {
   switch (action.type) {
+    case 'LOAD_JOURNALS':
+      return loadJournals(state, action);
     case 'ADD_JOURNAL':
       return addJournal(state, action);
     case 'UPDATE_JOURNAL':
@@ -95,8 +108,10 @@ function journalsById(state = baseJournals.byId, action) {
   }
 }
 
-function allJournals(state = baseJournals.allIds, action) {
+function allJournals(state = [], action) {
   switch (action.type) {
+    case 'LOAD_JOURNALS':
+      return loadJournalId(state, action);
     case 'ADD_JOURNAL':
       return addJournalId(state, action);
     case 'DELETE_JOURNAL':

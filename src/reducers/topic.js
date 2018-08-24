@@ -1,5 +1,16 @@
 import { combineReducers } from 'redux';
-import { baseTopics } from '../demo-data';
+import { populateEntityArray } from '../helpers';
+
+function loadTopics(state, action) {
+  const { payload } = action;
+  populateEntityArray(payload, 'taskGroups');
+  return { ...payload };
+}
+
+function loadTopicId(state, action) {
+  const { payload } = action;
+  return Object.keys(payload);
+}
 
 function addTopic(state, action) {
   const { payload } = action;
@@ -77,8 +88,10 @@ function deleteTaskGroup(state, action) {
   };
 }
 
-function topicsById(state = baseTopics.byId, action) {
+function topicsById(state = {}, action) {
   switch (action.type) {
+    case 'LOAD_TOPICS':
+      return loadTopics(state, action);
     case 'ADD_TOPIC':
       return addTopic(state, action);
     case 'UPDATE_TOPIC':
@@ -94,8 +107,10 @@ function topicsById(state = baseTopics.byId, action) {
   }
 }
 
-function allTopics(state = baseTopics.allIds, action) {
+function allTopics(state = [], action) {
   switch (action.type) {
+    case 'LOAD_TOPICS':
+      return loadTopicId(state, action);
     case 'ADD_TOPIC':
       return addTopicId(state, action);
     case 'DELETE_TOPIC':

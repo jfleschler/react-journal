@@ -1,5 +1,16 @@
 import { combineReducers } from 'redux';
-import { baseTaskGroups } from '../demo-data';
+import { populateEntityArray } from '../helpers';
+
+function loadTaskGroups(state, action) {
+  const { payload } = action;
+  populateEntityArray(payload, 'tasks');
+  return { ...payload };
+}
+
+function loadTaskGroupId(state, action) {
+  const { payload } = action;
+  return Object.keys(payload);
+}
 
 function addTaskGroup(state, action) {
   const { payload } = action;
@@ -76,8 +87,10 @@ function deleteTask(state, action) {
   };
 }
 
-function taskGroupsById(state = baseTaskGroups.byId, action) {
+function taskGroupsById(state = {}, action) {
   switch (action.type) {
+    case 'LOAD_TASK_GROUP':
+      return loadTaskGroups(state, action);
     case 'ADD_TASK_GROUP':
       return addTaskGroup(state, action);
     case 'UPDATE_TASK_GROUP':
@@ -93,8 +106,10 @@ function taskGroupsById(state = baseTaskGroups.byId, action) {
   }
 }
 
-function allTaskGroups(state = baseTaskGroups.allIds, action) {
+function allTaskGroups(state = [], action) {
   switch (action.type) {
+    case 'LOAD_TASK_GROUP':
+      return loadTaskGroupId(state, action);
     case 'ADD_TASK_GROUP':
       return addTaskGroupId(state, action);
     case 'DELETE_TASK_GROUP':

@@ -87,12 +87,13 @@ class JournalListEntry extends React.Component {
             </OptionButton>
           </div>
         </div>
-        {this.props.journal.topics.map((topicId, index) => (
-          <div key={topicId}>
-            <div className="journal-entry__spacer" />
-            {this.renderJournalTopic(topicId)}
-          </div>
-        ))}
+        {this.props.journal.topics &&
+          this.props.journal.topics.map((topicId, index) => (
+            <div key={topicId}>
+              <div className="journal-entry__spacer" />
+              {this.renderJournalTopic(topicId)}
+            </div>
+          ))}
 
         {this.state.addTopic && (
           <React.Fragment>

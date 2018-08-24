@@ -18,10 +18,25 @@ export function getActiveJournal(allJournals, journalName) {
 export function getActiveTopic(activeJournal, allTopics, topicName) {
   return (
     activeJournal &&
+    activeJournal.topics &&
     activeJournal.topics
       .filter(id => {
         return getSlug(allTopics[id].name) === topicName;
       })
       .map(id => allTopics[id])[0]
   );
+}
+
+export function populateEntityArray(payload, arrayName) {
+  Object.keys(payload).forEach(key => {
+    if (payload[key][arrayName] === undefined) {
+      payload[key][arrayName] = [];
+    } else {
+      payload[key][arrayName] = Object.keys(payload[key][arrayName]).map(
+        taskGroupKey => {
+          return payload[key][arrayName][taskGroupKey];
+        }
+      );
+    }
+  });
 }
