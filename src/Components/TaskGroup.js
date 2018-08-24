@@ -60,7 +60,7 @@ class TaskGroup extends React.Component {
                 onClick={() => null}>
                 <ConfirmButton
                   onConfirm={() =>
-                    this.props.onDeleteTaskGroup(id, this.props.topicId)
+                    this.props.onDeleteTaskGroup(id, this.props.topicId, tasks)
                   }
                   classOverride="task-group__delete-button">
                   Remove Group

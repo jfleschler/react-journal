@@ -15,6 +15,7 @@ class JournalList extends React.Component {
             onOpenTopic={this.props.onOpenTopic}
             activeTopicId={this.props.activeTopicId}
             topicsById={this.props.topicsById}
+            taskGroupsById={this.props.taskGroupsById}
             onAddTopic={this.props.onAddTopic}
           />
         ))}

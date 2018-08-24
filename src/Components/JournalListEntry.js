@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
+import flatmap from 'flatmap';
 import OptionButton from './OptionButton';
 import ConfirmButton from './ConfirmButton';
 import ClickOutside from './ClickOutside';
@@ -28,6 +29,22 @@ class JournalListEntry extends React.Component {
 
   handleChange = event => {
     this.setState({ name: event.target.value });
+  };
+
+  handleDeleteJournal = id => {
+    const topics = Object.keys(this.props.topicsById)
+      .filter(topicId => {
+        return this.props.journal.topics.indexOf(topicId) !== -1;
+      })
+      .map(topicId => this.props.topicsById[topicId]);
+
+    const allTaskGroups = flatmap(topics, topic => topic.taskGroups);
+    const taskGroups = Object.keys(this.props.taskGroupsById)
+      .filter(taskGroupId => {
+        return allTaskGroups.indexOf(taskGroupId) !== -1;
+      })
+      .map(taskGroupId => this.props.taskGroupsById[taskGroupId]);
+    this.props.onDeleteJournal(id, topics, taskGroups);
   };
 
   renderJournalTopic(topicId) {
@@ -80,7 +97,7 @@ class JournalListEntry extends React.Component {
                 Settings
               </button>
               <ConfirmButton
-                onConfirm={() => this.props.onDeleteJournal(id)}
+                onConfirm={() => this.handleDeleteJournal(id)}
                 classOverride="task-group__delete-button">
                 Delete Journal
               </ConfirmButton>

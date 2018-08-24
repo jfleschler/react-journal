@@ -1,6 +1,14 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { addJournal, updateJournal, deleteJournal, addTopic } from '../actions';
+import {
+  addJournal,
+  updateJournal,
+  deleteJournal,
+  addTopic,
+  deleteTask,
+  deleteTaskGroup,
+  deleteTopic,
+} from '../actions';
 import { getActiveJournal, getActiveTopic } from '../helpers';
 import JournalList from '../components/JournalList';
 
@@ -17,6 +25,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     journals,
     topicsById: state.entities.topics.byId,
+    taskGroupsById: state.entities.taskGroups.byId,
     activeTopicId: topic && topic.id,
   };
 };
@@ -29,8 +38,17 @@ const mapDispatchToProps = dispatch => {
     onUpdateJournal: (id, name, color) => {
       dispatch(updateJournal(id, name, color));
     },
-    onDeleteJournal: id => {
-      dispatch(deleteJournal(id));
+    onDeleteJournal: (journalId, topics, taskGroups) => {
+      topics.forEach(topic => {
+        taskGroups.forEach(taskGroup => {
+          taskGroup.tasks.forEach(task =>
+            dispatch(deleteTask(task, taskGroup.id))
+          );
+          dispatch(deleteTaskGroup(taskGroup.id, topic.id));
+        });
+        dispatch(deleteTopic(topic.id, journalId));
+      });
+      dispatch(deleteJournal(journalId));
     },
     onAddTopic: (id, name) => {
       dispatch(addTopic(id, name));

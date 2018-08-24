@@ -7,6 +7,7 @@ import {
   deleteTaskGroup,
   addTask,
   updateTask,
+  deleteTask,
 } from '../actions';
 import { getActiveJournal, getActiveTopic } from '../helpers';
 import TopicViewer from '../components/TopicViewer';
@@ -36,7 +37,13 @@ const mapDispatchToProps = dispatch => {
     onUpdateTopic: (topicId, topicName) => {
       dispatch(updateTopic(topicId, topicName));
     },
-    onDeleteTopic: (topicId, journalId) => {
+    onDeleteTopic: (topicId, journalId, taskGroups) => {
+      taskGroups.forEach(taskGroup => {
+        taskGroup.tasks.forEach(task =>
+          dispatch(deleteTask(task, taskGroup.id))
+        );
+        dispatch(deleteTaskGroup(taskGroup.id, topicId));
+      });
       dispatch(deleteTopic(topicId, journalId));
     },
     onAddTaskGroup: (name, color) => {
@@ -45,7 +52,8 @@ const mapDispatchToProps = dispatch => {
     onUpdateTastGroup: (id, name, color) => {
       dispatch(updateTaskGroup(id, name, color));
     },
-    onDeleteTaskGroup: (taskGroupId, topicId) => {
+    onDeleteTaskGroup: (taskGroupId, topicId, tasks) => {
+      tasks.forEach(task => dispatch(deleteTask(task, taskGroupId)));
       dispatch(deleteTaskGroup(taskGroupId, topicId));
     },
     onAddTask: (taskGroupId, taskName) => {

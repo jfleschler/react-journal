@@ -63,7 +63,11 @@ class TopicViewer extends React.Component {
                 </button>
                 <ConfirmButton
                   onConfirm={() => {
-                    this.props.onDeleteTopic(topic.id, journal.id);
+                    this.props.onDeleteTopic(
+                      topic.id,
+                      journal.id,
+                      this.props.taskGroups
+                    );
                   }}
                   classOverride="topic__delete-button">
                   Delete Topic

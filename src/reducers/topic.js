@@ -47,7 +47,7 @@ function updateTopic(state, action) {
 function deleteTopic(state, action) {
   const { payload } = action;
   const { topicId } = payload;
-  console.log(payload);
+
   const newState = { ...state };
   delete newState[topicId];
   return newState;
@@ -76,7 +76,6 @@ function addTaskGroup(state, action) {
 function deleteTaskGroup(state, action) {
   const { payload } = action;
   const { taskGroupId, topicId } = payload;
-  console.log(taskGroupId, topicId);
 
   const topic = state[topicId];
   return {

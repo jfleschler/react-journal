@@ -191,7 +191,7 @@ function deleteTask(taskId, taskGroupId) {
 
   return {
     type: 'DELETE_TASK',
-    payload: { taskId },
+    payload: { taskId, taskGroupId },
   };
 }
 
